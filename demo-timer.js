@@ -1,4 +1,4 @@
-const DEMO_DURATION_MS = 10 * 60 * 1000;
+const DEMO_DURATION_MS = 5 * 60 * 1000;
 const STORAGE_KEY_START = 'demoStartTime';
 const STORAGE_KEY_DATE = 'demoDate';
 
