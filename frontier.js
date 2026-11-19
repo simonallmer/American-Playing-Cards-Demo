@@ -392,6 +392,10 @@ class FrontierGame {
                     </ul>
 
                     <h3 style="color: var(--gold-bright); margin-top: 2rem;">4. Tiers</h3>
+                    <figure class="rules-figure" onclick="frontierGame.openImage(this.querySelector('img').src)" title="Click to view full screen">
+                        <img src="resources/rules/frontier-tiers-en.jpg" alt="Frontier Tiers: Combination Size, Combination Type, Color, Total" loading="lazy">
+                        <figcaption>Click to view full screen</figcaption>
+                    </figure>
                     <p>Your <strong>hand</strong> is the cards you play: any of your own plus any Table Cards — Table Cards alone are allowed. A Table Card serves every player at once.</p>
                     <p>A <strong>Combination</strong> is two or more cards that share a trait. A hand holds one combination or none — a card that doesn't fit breaks it, so play only what fits and keep the rest.</p>
                     <ul style="background: rgba(255,255,255,0.03); padding: 16px 16px 16px 34px; border: 1px solid #333; font-size: 0.9rem;">
@@ -429,6 +433,18 @@ class FrontierGame {
 
     showRules() {
         this.toggleRules();
+    }
+
+    // Full-screen image viewer (Tiers sheet in the rules). Click or Esc closes it.
+    openImage(src) {
+        const box = document.createElement('div');
+        box.className = 'image-lightbox';
+        box.innerHTML = `<img src="${src}" alt=""><button class="modal-close" aria-label="Close">&times;</button>`;
+        const close = () => { box.remove(); document.removeEventListener('keydown', onKey); };
+        const onKey = (e) => { if (e.key === 'Escape') close(); };
+        box.onclick = close;
+        document.addEventListener('keydown', onKey);
+        document.body.appendChild(box);
     }
 
     showAllCards() {
@@ -735,18 +751,10 @@ if (this.edition === 'PRESIDENT' || this.edition === 'STATE') div.classList.add(
         beginBtnWrapper.style.flexDirection = 'column';
         beginBtnWrapper.style.alignItems = 'center';
         
-        const rulesBtn = document.createElement('div');
+        const rulesBtn = document.createElement('button');
+        rulesBtn.className = 'primary-btn setup-btn';
         rulesBtn.innerText = "RULES";
-        rulesBtn.style.color = "var(--gold)";
-        rulesBtn.style.letterSpacing = "4px";
-        rulesBtn.style.fontSize = "0.9rem";
-        rulesBtn.style.cursor = "pointer";
-        rulesBtn.style.marginTop = "20px";
-        rulesBtn.style.borderBottom = "1px solid rgba(212, 175, 55, 0.3)";
-        rulesBtn.style.paddingBottom = "5px";
-        rulesBtn.style.transition = "color 0.3s";
-        rulesBtn.onmouseover = () => rulesBtn.style.color = "var(--gold-bright)";
-        rulesBtn.onmouseout = () => rulesBtn.style.color = "var(--gold)";
+        rulesBtn.style.marginTop = '-14px'; // offset the wrapper's 20px gap so it stacks evenly under STORE
         rulesBtn.onclick = () => this.showRules();
 
         const credit = document.createElement('div');
@@ -875,10 +883,9 @@ if (this.edition === 'PRESIDENT' || this.edition === 'STATE') div.classList.add(
         beginBtnWrapper.innerHTML = '';
 
         const beginBtn = document.createElement('button');
-        beginBtn.className = "primary-btn";
+        beginBtn.className = "primary-btn setup-btn";
         beginBtn.style.marginTop = "20px";
-        beginBtn.style.padding = "15px 40px";
-        beginBtn.innerText = "BEGIN GAME";
+        beginBtn.innerText = "PLAY";
             beginBtn.onclick = () => {
                 const finalPlayers = playerConfigs.map(c => ({
                     name: c.input.value.trim(),
@@ -899,7 +906,7 @@ if (this.edition === 'PRESIDENT' || this.edition === 'STATE') div.classList.add(
         beginBtnWrapper.appendChild(beginBtn);
 
         const storeBtn = document.createElement('a');
-        storeBtn.className = 'store-btn';
+        storeBtn.className = 'primary-btn setup-btn';
         storeBtn.href = 'https://simonallmer.com/store/p/american-playing-cards';
         storeBtn.target = '_blank';
         storeBtn.rel = 'noopener';

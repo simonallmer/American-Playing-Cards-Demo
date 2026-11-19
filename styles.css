@@ -4827,18 +4827,22 @@ body:has(#president-quiz.active) #permanent-demo-timer {
     #sa { top: max(18px, env(safe-area-inset-top, 18px)); }
 }
 
-.store-btn {
-    margin-top: 14px;
-    padding: 10px 32px;
-    border: 1px solid rgba(212, 175, 55, 0.35);
-    color: var(--gold);
-    font-size: 0.8rem;
-    letter-spacing: 4px;
+.setup-btn {
+    display: block;
+    width: 200px;
+    box-sizing: border-box;
+    padding: 15px 0;
+    margin: 6px auto;
+    text-align: center;
     text-decoration: none;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
-.store-btn:hover {
-    color: var(--gold-bright);
-    border-color: var(--gold-bright);
-    background: rgba(212, 175, 55, 0.08);
+
+/* Tiers sheet inside the rules, and its full-screen viewer */
+.rules-figure { margin: 1rem 0 1.5rem; cursor: zoom-in; }
+.rules-figure img { display: block; width: 100%; height: auto; border: 1px solid #333; }
+.rules-figure figcaption { margin-top: 6px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); text-align: center; }
+.image-lightbox {
+    position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, 0.94);
+    display: flex; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box; cursor: zoom-out;
 }
+.image-lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
